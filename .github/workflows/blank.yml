@@ -14,8 +14,11 @@ jobs:
       - name: Setup Geode
         uses: geode-sdk/setup-geode@v1
 
+      - name: Verify Geode
+        run: geode --version
+
       - name: Build mod
-        run: geode build
+        run: geode build .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
