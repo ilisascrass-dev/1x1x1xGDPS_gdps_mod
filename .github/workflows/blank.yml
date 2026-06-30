@@ -14,19 +14,13 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y cmake ninja-build git curl
+          sudo apt install -y cmake ninja-build git python3
 
-      - name: Install Geode CLI
-        run: |
-          curl -L https://github.com/geode-sdk/cli/releases/latest/download/geode-linux -o geode
-          chmod +x geode
-          sudo mv geode /usr/local/bin/
-
-      - name: Check Geode
-        run: geode --version
+      - name: Configure project
+        run: cmake -B build -S . -G Ninja
 
       - name: Build mod
-        run: geode build .
+        run: cmake --build build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
