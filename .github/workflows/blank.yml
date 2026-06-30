@@ -11,10 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Geode
-        uses: geode-sdk/setup-geode@v1
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y cmake ninja-build git curl
 
-      - name: Verify Geode
+      - name: Install Geode CLI
+        run: |
+          curl -L https://github.com/geode-sdk/cli/releases/latest/download/geode-linux -o geode
+          chmod +x geode
+          sudo mv geode /usr/local/bin/
+
+      - name: Check Geode
         run: geode --version
 
       - name: Build mod
